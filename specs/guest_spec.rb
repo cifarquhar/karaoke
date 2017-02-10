@@ -9,8 +9,10 @@ class GuestSpec < MiniTest::Test
   def setup()
    
     @song1 = Song.new("Help")
+    @song2 = Song.new("Song2")
 
     @guest1 = Guest.new("Colin",100,@song1)
+    @guest2 = Guest.new("Vicky",100,@song2)
 
     @room1 = Room.new("small",15)
 
@@ -28,9 +30,14 @@ class GuestSpec < MiniTest::Test
 
   def test_guest_likes_song
     @room1.add_song(@song1)
-    assert_equal([@song1],@room1.songs)
     actual = @guest1.check_favourite_song(@room1.songs)
     assert_equal("Woo! I love this song!",actual)
+  end
+
+  def test_guest_doesnt_like_song
+    @room1.add_song(@song1)
+    actual = @guest2.check_favourite_song(@room1.songs)
+    assert_nil(actual)
   end
 
 end
