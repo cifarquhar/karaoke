@@ -12,16 +12,18 @@ class RoomSpec < MiniTest::Test
     @room2 = Room.new("medium",15)
     @room3 = Room.new("large",15)
 
-    @guest1 = Guest.new("Colin",100,"some_song")
-    @guest2 = Guest.new("Jim",50,"some_song")
-    @guest3 = Guest.new("Sue",60,"some_song")
-    @guest4 = Guest.new("Emma",250,"some_song")
-    @guest5 = Guest.new("Nick",5,"some_song")
-    @guest6 = Guest.new("Amy",20,"some_song")
-    @guest7 = Guest.new("RandomTestDude",1000,"some_song")
-
-
     @song1 = Song.new("Bohemian Rhapsody")
+
+    @guest1 = Guest.new("Colin",100,@song1)
+    @guest2 = Guest.new("Jim",50,@song1)
+    @guest3 = Guest.new("Sue",60,@song1)
+    @guest4 = Guest.new("Emma",250,@song1)
+    @guest5 = Guest.new("Nick",5,@song1)
+    @guest6 = Guest.new("Amy",20,@song1)
+    @guest7 = Guest.new("RandomTestDude",1000,@song1)
+
+
+   
   end
 
 

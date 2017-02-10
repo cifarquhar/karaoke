@@ -7,11 +7,14 @@ require_relative('../song.rb')
 class GuestSpec < MiniTest::Test
 
   def setup()
-    @guest1 = Guest.new("Colin",100,"Help")
+   
+    @song1 = Song.new("Help")
+
+    @guest1 = Guest.new("Colin",100,@song1)
 
     @room1 = Room.new("small",15)
 
-    @song1 = Song.new("Help")
+   
   end
 
 

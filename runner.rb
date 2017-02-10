@@ -58,13 +58,8 @@ class Runner
       puts ""
       puts "You're such a cliche..." if song_title.downcase == "don't stop believin'"
       puts "Your song has been added to the playlist."
-      puts @rooms[0].songs
-      @rooms[0].guests.each do |singer| 
-        if @rooms[0].songs.include?(singer.song)
-          puts "#{singer.name} says 'Woo! I love this song!"
-        else
-          puts "Conditional not working"
-        end
+      @rooms[0].guests.each do |singer,song_num| 
+           puts "#{singer.name} says 'Woo! I love this song!" if @rooms[0].songs[song_num.to_i].title == (singer.song)
       end
       action_prompt
     elsif action_input == 3
