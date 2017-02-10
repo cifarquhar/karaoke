@@ -38,7 +38,9 @@ class Runner
       guest_name = gets.chomp
       puts "How much money do they have?"
       guest_money = gets.chomp.to_i
-      guest = Guest.new(guest_name,guest_money)
+      puts "What's their favourite song?"
+      guest_song = gets.chomp
+      guest = Guest.new(guest_name,guest_money,guest_song)
       @rooms[0].check_in(guest)
       puts ""
       if @rooms[0].guests.include?(guest)

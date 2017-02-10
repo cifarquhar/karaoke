@@ -23,7 +23,7 @@ class GuestSpec < MiniTest::Test
   def test_guest_likes_song
     @room1.add_song("help")
     actual = @guest1.check_favourite_song(@room1.songs)
-    assert_equal("Woo!",actual)
+    assert_equal("Woo! I love this song!",actual)
   end
 
 end

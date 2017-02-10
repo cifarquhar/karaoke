@@ -10,7 +10,7 @@ class Guest
   end
 
   def check_favourite_song(playlist)
-    response =  "Woo!" if playlist.include?(@song) == true
+    response = "Woo! I love this song!" if playlist.include?(@song) == true
     return response
     puts response
   end
