@@ -2,9 +2,17 @@ class Room
 
   attr_accessor :guests, :songs
 
-  def initialize()
+  def initialize(size)
     @guests = []
     @songs = []
+    @capacity = case size
+                  when "small"
+                    5
+                  when "medium"
+                    10
+                  when "large"
+                    15
+                  end
   end
 
 
