@@ -9,5 +9,9 @@ class GuestSpec < MiniTest::Test
   end
 
 
+  def test_guest_has_name
+    assert_equal("Colin",@guest1.name)
+  end
+
 
 end
