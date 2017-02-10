@@ -1,6 +1,7 @@
 class Room
 
   attr_accessor :guests, :songs
+  attr_reader :entry_fee
 
   def initialize(size,entry_fee)
     @guests = []
@@ -21,7 +22,7 @@ class Room
     if @guests.count < @capacity
       @guests << guest
     else
-      return "Sorry, room is already full"
+      return "Sorry, room is already full."
     end
   end
 
@@ -41,5 +42,12 @@ class Room
     end
   end
 
+  def collect_entry_fee(guest)
+    if can_afford_entry(guest) == true
+      guest.money -= @entry_fee 
+    else
+      return "Sorry, you can't afford entry."
+    end
+  end
 
 end

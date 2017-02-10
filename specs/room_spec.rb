@@ -58,7 +58,7 @@ class RoomSpec < MiniTest::Test
     @room1.check_in(@guest3)
     @room1.check_in(@guest4)
     @room1.check_in(@guest5)
-    expected = "Sorry, room is already full"
+    expected = "Sorry, room is already full."
     actual = @room1.check_in(@guest6)
     assert_equal(expected,actual)
   end
@@ -71,6 +71,16 @@ class RoomSpec < MiniTest::Test
   def test_guest_cant_afford_entry
     actual = @room1.can_afford_entry(@guest5)
     assert_equal(false,actual)
+  end
+
+  def test_guest_has_paid
+    @room1.collect_entry_fee(@guest1)
+    assert_equal(85,@guest1.money)
+  end
+
+  def test_guest_hasnt_paid
+    actual = @room1.collect_entry_fee(@guest5)
+    assert_equal("Sorry, you can't afford entry.",actual)
   end
 
 
