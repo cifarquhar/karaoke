@@ -2,7 +2,7 @@ class Room
 
   attr_accessor :guests, :songs
 
-  def initialize(size)
+  def initialize(size,entry_fee)
     @guests = []
     @songs = []
     @capacity = case size
@@ -13,6 +13,7 @@ class Room
                   when "large"
                     15
                   end
+    @entry_fee = entry_fee
   end
 
 
@@ -31,5 +32,14 @@ class Room
   def add_song(song)
     @songs << song
   end
+
+  def can_afford_entry(guest)
+    if guest.money >= @entry_fee
+      return true
+    else
+      return false
+    end
+  end
+
 
 end

@@ -8,16 +8,16 @@ require_relative('../song.rb')
 class RoomSpec < MiniTest::Test
 
   def setup()
-    @room1 = Room.new("small")
-    @room2 = Room.new("medium")
-    @room3 = Room.new("large")
+    @room1 = Room.new("small",15)
+    @room2 = Room.new("medium",15)
+    @room3 = Room.new("large",15)
 
-    @guest1 = Guest.new("Colin")
-    @guest2 = Guest.new("Jim")
-    @guest3 = Guest.new("Sue")
-    @guest4 = Guest.new("Emma")
-    @guest5 = Guest.new("Nick")
-    @guest6 = Guest.new("Amy")
+    @guest1 = Guest.new("Colin",100)
+    @guest2 = Guest.new("Jim",50)
+    @guest3 = Guest.new("Sue",60)
+    @guest4 = Guest.new("Emma",250)
+    @guest5 = Guest.new("Nick",5)
+    @guest6 = Guest.new("Amy",20)
 
 
     @song1 = Song.new("Bohemian Rhapsody")
@@ -61,6 +61,16 @@ class RoomSpec < MiniTest::Test
     expected = "Sorry, room is already full"
     actual = @room1.check_in(@guest6)
     assert_equal(expected,actual)
+  end
+
+  def test_guest_can_afford_entry
+    actual = @room1.can_afford_entry(@guest1)
+    assert_equal(true,actual)
+  end
+
+  def test_guest_cant_afford_entry
+    actual = @room1.can_afford_entry(@guest5)
+    assert_equal(false,actual)
   end
 
 
