@@ -95,12 +95,12 @@ class Runner
     elsif action_input == 6
       puts ""
       puts "The playlist in room #{num + 1} has the songs:"
-      @rooms[num].songs.each {|song_title| puts song_title.title}
+      @rooms[num].songs.each {|tune| puts tune.title}
       action_prompt(num)
 
     elsif action_input == 7
       leave_action
-      
+
     else
       puts "I'm sorry, I can't do that."
       puts ""
