@@ -21,6 +21,7 @@ class Room
   def check_in(guest)
     if @guests.count < @capacity && can_afford_entry(guest)
       @guests << guest
+      collect_entry_fee(guest)
     else
       return "Sorry, room is already full."
     end

@@ -1,6 +1,7 @@
 require_relative('room')
 require_relative('guest')
 require_relative('song')
+require('pry')
 
 class Runner
 
@@ -35,7 +36,7 @@ class Runner
     action_input = gets.chomp.to_i
     if action_input == 1
       puts "What's the guest's name?"
-      guest_name = gets.chomp
+      guest_name = gets.chomp.capitalize
       puts "How much money do they have?"
       guest_money = gets.chomp.to_i
       puts "What's their favourite song?"
@@ -44,9 +45,9 @@ class Runner
       @rooms[0].check_in(guest)
       puts ""
       if @rooms[0].guests.include?(guest)
-        puts "#{guest_name.capitalize} has been added to the room."
+        puts "#{guest_name} has been added to the room."
       else
-        puts "I'm sorry, #{guest_name.capitalize} couldn't be added to the room."
+        puts "I'm sorry, #{guest_name} couldn't be added to the room."
       end
         action_prompt
     elsif action_input == 2
@@ -57,6 +58,14 @@ class Runner
       puts ""
       puts "You're such a cliche..." if song_title.downcase == "don't stop believin'"
       puts "Your song has been added to the playlist."
+      puts @rooms[0].songs
+      @rooms[0].guests.each do |singer| 
+        if @rooms[0].songs.include?(singer.song)
+          puts "#{singer.name} says 'Woo! I love this song!"
+        else
+          puts "Conditional not working"
+        end
+      end
       action_prompt
     elsif action_input == 3
       leave_action
@@ -68,11 +77,15 @@ class Runner
   end
 
 
+  def run
+    room_prompt
+    action_prompt
+  end
 
 
 
 end
 
+
 club = Runner.new
-club.room_prompt
-club.action_prompt
+club.run

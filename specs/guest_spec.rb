@@ -2,6 +2,7 @@ require('minitest/autorun')
 require('minitest/rg')
 require_relative('../guest.rb')
 require_relative('../room.rb')
+require_relative('../song.rb')
 
 class GuestSpec < MiniTest::Test
 
@@ -9,6 +10,8 @@ class GuestSpec < MiniTest::Test
     @guest1 = Guest.new("Colin",100,"Help")
 
     @room1 = Room.new("small",15)
+
+    @song1 = Song.new("Help")
   end
 
 
@@ -21,7 +24,8 @@ class GuestSpec < MiniTest::Test
   end
 
   def test_guest_likes_song
-    @room1.add_song("help")
+    @room1.add_song(@song1)
+    assert_equal([@song1],@room1.songs)
     actual = @guest1.check_favourite_song(@room1.songs)
     assert_equal("Woo! I love this song!",actual)
   end

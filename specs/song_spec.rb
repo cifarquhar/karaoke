@@ -11,7 +11,7 @@ class SongSpec < MiniTest::Test
 
 
   def test_song_has_title
-    assert_equal("Bohemian Rhapsody",@song1.title)
+    assert_equal("bohemian rhapsody",@song1.title)
   end
 
 
