@@ -18,6 +18,7 @@ class RoomSpec < MiniTest::Test
     @guest4 = Guest.new("Emma",250)
     @guest5 = Guest.new("Nick",5)
     @guest6 = Guest.new("Amy",20)
+    @guest7 = Guest.new("RandomTestDude",1000)
 
 
     @song1 = Song.new("Bohemian Rhapsody")
@@ -57,9 +58,9 @@ class RoomSpec < MiniTest::Test
     @room1.check_in(@guest2)
     @room1.check_in(@guest3)
     @room1.check_in(@guest4)
-    @room1.check_in(@guest5)
+    @room1.check_in(@guest6)
     expected = "Sorry, room is already full."
-    actual = @room1.check_in(@guest6)
+    actual = @room1.check_in(@guest7)
     assert_equal(expected,actual)
   end
 
