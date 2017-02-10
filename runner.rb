@@ -8,6 +8,9 @@ class Runner
     @rooms = []
   end
 
+  def leave_action
+    puts "Thanks for visiting!"
+  end
 
   def room_prompt
     puts "How big would you like the room to be (small/medium/large)?"
@@ -22,9 +25,11 @@ class Runner
   end
 
   def action_prompt
+    puts ""
     puts "What would you like to do?"
     puts "1. Add a guest to the room"
     puts "2. Add a song to the playlist"
+    puts "3. Leave"
     puts ""
     puts "Please enter a number:"
     action_input = gets.chomp.to_i
@@ -35,17 +40,24 @@ class Runner
       guest_money = gets.chomp.to_i
       guest = Guest.new(guest_name,guest_money)
       @rooms[0].check_in(guest)
+      puts ""
       if @rooms[0].guests.include?(guest)
         puts "#{guest_name.capitalize} has been added to the room."
       else
         puts "I'm sorry, #{guest_name.capitalize} couldn't be added to the room."
       end
+        action_prompt
     elsif action_input == 2
       puts "What's the title of the song?"
       song_title = gets.chomp
       song = Song.new(song_title)
       @rooms[0].add_song(song)
+      puts ""
+      puts "You're such a cliche..." if song_title.downcase == "don't stop believin'"
       puts "Your song has been added to the playlist."
+      action_prompt
+    elsif action_input == 3
+      leave_action
     else
       puts "I'm sorry, I can't do that."
       puts ""
