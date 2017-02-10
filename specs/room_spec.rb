@@ -14,6 +14,11 @@ class RoomSpec < MiniTest::Test
 
     @guest1 = Guest.new("Colin")
     @guest2 = Guest.new("Jim")
+    @guest3 = Guest.new("Sue")
+    @guest4 = Guest.new("Emma")
+    @guest5 = Guest.new("Nick")
+    @guest6 = Guest.new("Amy")
+
 
     @song1 = Song.new("Bohemian Rhapsody")
   end
@@ -45,6 +50,17 @@ class RoomSpec < MiniTest::Test
     initial_playlist = @room1.songs.count
     @room1.add_song(@song1)
     assert_equal(initial_playlist + 1,@room1.songs.count)
+  end
+
+  def test_room_capacity_check
+    @room1.check_in(@guest1)
+    @room1.check_in(@guest2)
+    @room1.check_in(@guest3)
+    @room1.check_in(@guest4)
+    @room1.check_in(@guest5)
+    expected = "Sorry, room is already full"
+    actual = @room1.check_in(@guest6)
+    assert_equal(expected,actual)
   end
 
 
