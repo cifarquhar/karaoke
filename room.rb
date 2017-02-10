@@ -22,8 +22,13 @@ class Room
     if @guests.count < @capacity && can_afford_entry(guest)
       @guests << guest
       collect_entry_fee(guest)
-    else
+    elsif @guests.count >= @capacity
       return "Sorry, room is already full."
+    elsif !can_afford_entry(guest)
+      return "Sorry, you can't afford entry."
+    else
+      return
+      "Sorry, I can't check you in right now."
     end
   end
 
