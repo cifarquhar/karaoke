@@ -23,6 +23,8 @@ class RoomSpec < MiniTest::Test
     @guest6 = Guest.new("Amy",20,@song1)
     @guest7 = Guest.new("RandomTestDude",1000,@song1)
 
+    @bar = Bar.new
+
 
    
   end
@@ -91,6 +93,14 @@ class RoomSpec < MiniTest::Test
   def test_add_entry_to_guest_tab
     @room1.add_to_tab(@guest1,@room1.entry_fee)
     assert_equal(15,@guest1.tab)
+  end
+
+  def test_add_drink_to_guest_tab
+    @room1.add_to_tab(@guest1,@bar.drinks[:beer])
+    @room1.add_to_tab(@guest1,@bar.drinks[:wine])
+    @room1.add_to_tab(@guest1,@bar.drinks[:cider])
+    @room1.add_to_tab(@guest1,@bar.drinks[:vodka])
+    assert_equal(22,@guest1.tab)
   end
 
 
