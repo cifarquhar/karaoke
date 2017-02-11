@@ -39,7 +39,8 @@ class Runner
     puts "5. Go to another room"
     puts "6. List the people in this room"
     puts "7. Give me the playlist in this room"
-    puts "8. Leave"
+    puts "8. List the guests' tabs"
+    puts "9. Leave"
     puts ""
     puts "Please enter a number:"
     action_input = gets.chomp.to_i
@@ -113,6 +114,13 @@ class Runner
       action_prompt(num)
 
     elsif action_input == 8
+      puts ""
+      @rooms[num].guests.each do |visitor|
+        puts "#{visitor.name}'s tab is #{visitor.tab}."
+      end
+      action_prompt(num)
+
+    elsif action_input == 9
       leave_action
 
     else
