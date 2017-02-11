@@ -40,4 +40,8 @@ class GuestSpec < MiniTest::Test
     assert_nil(actual)
   end
 
+  def test_guest_starts_with_empty_tab
+    assert_equal(0,@guest1.tab)
+  end
+
 end

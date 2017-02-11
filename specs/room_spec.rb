@@ -3,6 +3,7 @@ require('minitest/rg')
 require_relative('../room.rb')
 require_relative('../guest.rb')
 require_relative('../song.rb')
+require_relative('../bar.rb')
 
 
 class RoomSpec < MiniTest::Test
@@ -84,6 +85,12 @@ class RoomSpec < MiniTest::Test
   def test_guest_hasnt_paid
     actual = @room1.collect_entry_fee(@guest5)
     assert_equal("Sorry, you can't afford entry.",actual)
+  end
+
+
+  def test_add_entry_to_guest_tab
+    @room1.add_to_tab(@guest1,@room1.entry_fee)
+    assert_equal(15,@guest1.tab)
   end
 
 
