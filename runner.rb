@@ -9,6 +9,7 @@ class Runner
   def initialize()
     @rooms = []
     @bar = Bar.new
+    @happy_guests = []
   end
 
   def leave_action
@@ -27,7 +28,46 @@ class Runner
     puts ""
   end
 
+  def guest_add_prompt(room)
+    puts "What's the guest's name?"
+    guest_name = gets.chomp.capitalize
+    puts "How much money do they have?"
+    guest_money = gets.chomp.to_i
+    puts "What's their favourite song?"
+    guest_song = gets.chomp
+    guest = Guest.new(guest_name,guest_money,guest_song)
+    room.check_in(guest)
+    puts ""
+    if room.guests.include?(guest)
+      puts "#{guest_name} has been added to the room."
+      room.add_to_tab(guest,room.entry_fee)
+      puts "#{guest_name}'s tab is now #{guest.tab}"
+    else
+      puts "I'm sorry, #{guest_name} couldn't be added to the room."
+    end
+  end
+
+  def song_add_prompt(room)
+    puts "What's the title of the song?"
+    song_title = gets.chomp
+    song = Song.new(song_title)
+    room.add_song(song)
+    puts ""
+    puts "Your song has been added to the playlist."
+  end
+
+  def drink_add_prompt(room)
+    puts "Which guest?"
+    guest_id = gets.chomp.capitalize
+    guest_index = room.guests.find_index(room.guests.find {|person| person.name == guest_id})
+    puts "Which drink (beer/wine/cider/vodka)?"
+    guest_drink = gets.chomp
+    room.add_to_tab(room.guests[guest_index],@bar.drinks[guest_drink])
+    puts "#{guest_drink.capitalize} added to #{guest_id.capitalize}'s tab. #{guest_id.capitalize}'s tab is now #{room.guests[guest_index].tab}."
+  end
+
   def action_prompt(num)
+    this_room = @rooms[num]
     puts ""
     puts "You are in room #{num + 1}."
     puts ""
@@ -46,44 +86,22 @@ class Runner
     action_input = gets.chomp.to_i
    
     if action_input == 1
-      puts "What's the guest's name?"
-      guest_name = gets.chomp.capitalize
-      puts "How much money do they have?"
-      guest_money = gets.chomp.to_i
-      puts "What's their favourite song?"
-      guest_song = gets.chomp
-      guest = Guest.new(guest_name,guest_money,guest_song)
-      @rooms[num].check_in(guest)
-      puts ""
-      if @rooms[num].guests.include?(guest)
-        puts "#{guest_name} has been added to the room."
-        @rooms[num].add_to_tab(guest,@rooms[num].entry_fee)
-        puts "#{guest_name}'s tab is now #{guest.tab}"
-      else
-        puts "I'm sorry, #{guest_name} couldn't be added to the room."
-      end
-        action_prompt(num)
+      guest_add_prompt(this_room)
+      action_prompt(num)
     
     elsif action_input == 2
-      puts "What's the title of the song?"
-      song_title = gets.chomp
-      song = Song.new(song_title)
-      @rooms[num].add_song(song)
-      puts ""
-      puts "Your song has been added to the playlist."
-      @rooms[num].guests.each do |singer,song_num| 
-           puts "#{singer.name} says 'Woo! I love this song!" if @rooms[num].songs[song_num.to_i].title == (singer.song)
-      end
+     song_add_prompt(this_room)
+      # @rooms[num].guests.each do |singer| 
+      #    @rooms[num].songs.each do |song|
+      #       puts "#{singer.name} says 'Woo! I love this song!" if song.title == (singer.song) && @happy_guests.include?(singer) ==false
+      #       @happy_guests << singer
+      #       binding.pry
+      #     end
+      # end
       action_prompt(num)
 
     elsif action_input == 3
-      puts "Which guest?"
-      guest_id = gets.chomp.capitalize
-      guest_index = @rooms[num].guests.find_index(@rooms[num].guests.find {|person| person.name == guest_id})
-      puts "Which drink (beer/wine/cider/vodka)?"
-      guest_drink = gets.chomp
-      @rooms[num].add_to_tab(@rooms[num].guests[guest_index],@bar.drinks[guest_drink])
-      puts "#{guest_drink.capitalize} added to #{guest_id.capitalize}'s tab. #{guest_id.capitalize}'s tab is now #{@rooms[num].guests[guest_index].tab}."
+      drink_add_prompt(this_room)
       action_prompt(num)
     
     elsif action_input == 4
